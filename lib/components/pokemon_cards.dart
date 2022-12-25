@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_project/components/poemon_types.dart';
 import 'package:pokedex_project/data/models/poke_type_model.dart';
 import 'package:pokedex_project/data/models/pokemon_model.dart';
 import 'package:string_capitalize/string_capitalize.dart';
@@ -27,15 +28,20 @@ class PokemonCards extends StatelessWidget {
         return Center(
           child: Stack(children: [
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 2.0),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFF80DDB2),
+                color: Colors.deepPurple.shade200,
               ),
-              child: Image.network(
-                'https://media.istockphoto.com/id/1371944453/vector/blue-abstract-wave-background.jpg?s=612x612&w=0&k=20&c=uaCU_xpsKQLnbnvJH99iAi9uUqEAoS4jcyDwHXlLq5M=',
-                fit: BoxFit.fill,
-                opacity: const AlwaysStoppedAnimation(0.4),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'assets/img/card_background.jpg',
+                  fit: BoxFit.cover,
+                  opacity: const AlwaysStoppedAnimation(0.4),
+                ),
               ),
             ),
             Positioned(
@@ -63,66 +69,11 @@ class PokemonCards extends StatelessWidget {
                 ),
               ),
             ),
-            FutureBuilder<List<PokeTypeModel>>(
-              future: futureType,
-              builder: (context, snapshot) {
-                final snapData = snapshot.data;
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Positioned(
-                  top: 55.0,
-                  left: 10.0,
-                  child: SizedBox(
-                    width: 75,
-                    height: 60,
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 1,
-                      itemBuilder: (context, index) => Column(
-                        children: snapData!
-                            .map<Widget>(
-                              (e) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2.0),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 65,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.5),
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ),
-                                    Positioned.fill(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          e.name.toUpperCase(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            )
+            PokemonTypes(futureType: futureType)
           ]),
         );
       },
     );
   }
 }
+

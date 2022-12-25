@@ -17,16 +17,20 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pokedex'),
       ),
-      body: GridView.builder(
-          // padding: const EdgeInsets.all(8.0),
-          itemCount: 905,
-          gridDelegate: gridDelegate,
-          itemBuilder: (context, index) {
-            return PokemonCards(
-              futureType: pokemon.getType(index + 1),
-              future: pokemon.getPokemons(index + 1),
-            );
-          }),
+      body: Column(children: [
+        Expanded(
+          child: GridView.builder(
+              padding: const EdgeInsets.only(top: 8.0),
+              itemCount: 905,
+              gridDelegate: gridDelegate,
+              itemBuilder: (context, index) {
+                return PokemonCards(
+                  futureType: pokemon.getType(index + 1),
+                  future: pokemon.getPokemons(index + 1),
+                );
+              }),
+        ),
+      ]),
     );
   }
 }
