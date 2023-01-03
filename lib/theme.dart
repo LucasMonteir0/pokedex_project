@@ -6,11 +6,15 @@ class PokeTheme {
     return ThemeData(
       // TEXT EDITING
 
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(
+      textTheme: TextTheme(
+        bodyMedium: const TextStyle(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        bodySmall: TextStyle(
+        bodySmall: const TextStyle(
             color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+        bodyLarge: const TextStyle(
+            color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+        // bodyText2: const TextStyle(
+        //     color: Colors.grey, fontSize: 28, fontWeight: FontWeight.bold),
       ),
 
       // SCAFFOLD EDITING

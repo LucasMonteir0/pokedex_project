@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class PokeTypeModel {
   final String name;
 
@@ -7,3 +9,4 @@ class PokeTypeModel {
         name: map['type']['name'],
       );
 }
+
