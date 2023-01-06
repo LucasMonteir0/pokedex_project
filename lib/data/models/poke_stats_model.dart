@@ -1,14 +1,12 @@
 class PokeStatsModel {
   final String name;
-  final int stat;
+  final int baseStat;
 
-  PokeStatsModel({
-    required this.name,
-    required this.stat,
-  });
+  PokeStatsModel({required this.name, required this.baseStat});
 
-  factory PokeStatsModel.fromMap(Map<String, dynamic> map) => PokeStatsModel(
-        name: map['stat']['name'],
-        stat: map['base_stat'],
-      );
+  factory PokeStatsModel.fromMap(Map<String, dynamic> map) {
+    final name = map["stat"]["name"];
+    final stat = map["base_stat"];
+    return PokeStatsModel(name: name, baseStat: stat);
+  }
 }

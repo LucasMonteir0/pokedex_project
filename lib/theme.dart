@@ -4,14 +4,15 @@ import 'package:pokedex_project/config/colors.dart';
 class PokeTheme {
   static ThemeData light() {
     return ThemeData(
+      primarySwatch: Colors.red,
       // TEXT EDITING
 
-      textTheme: TextTheme(
-        bodyMedium: const TextStyle(
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        bodySmall: const TextStyle(
+        bodySmall: TextStyle(
             color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-        bodyLarge: const TextStyle(
+        bodyLarge: TextStyle(
             color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
         // bodyText2: const TextStyle(
         //     color: Colors.grey, fontSize: 28, fontWeight: FontWeight.bold),

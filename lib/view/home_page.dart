@@ -13,6 +13,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final pokemon = PokemonRepository();
 
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(seconds: 1),
+      curve: Curves.linear,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
@@ -23,17 +33,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Pokédex'),
+        title: GestureDetector(onTap: scrollTop, child: const Text('Pokédex')),
       ),
       body: Column(children: [
         Expanded(
           child: GridView.builder(
+              controller: _scrollController,
               padding: const EdgeInsets.only(top: 8.0),
               itemCount: 905,
               gridDelegate: gridDelegate,
               itemBuilder: (context, index) {
                 return PokemonCards(
-                  futureType: pokemon.getType(index + 1),
                   future: pokemon.getPokemons(index + 1),
                   nextPage: DetailsPage(index: index + 1),
                 );
@@ -41,5 +51,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

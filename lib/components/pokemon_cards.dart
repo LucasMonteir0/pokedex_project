@@ -8,19 +8,17 @@ class PokemonCards extends StatelessWidget {
   const PokemonCards({
     Key? key,
     required this.future,
-    required this.futureType,
     required this.nextPage,
   }) : super(key: key);
 
-  final Future<PokemonModel> future;
-  final Future<List<PokeTypeModel>> futureType;
+  final Future<PokeModel> future;
   final Widget nextPage;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return FutureBuilder<PokemonModel>(
+    return FutureBuilder<PokeModel>(
       future: future,
       builder: (context, snapshot) {
         final snapData = snapshot.data;
@@ -32,7 +30,9 @@ class PokemonCards extends StatelessWidget {
         return Center(
           child: InkWell(
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => nextPage)),
+              context,
+              MaterialPageRoute(builder: (context) => nextPage),
+            ),
             child: Stack(children: [
               Container(
                 width: size.width,
@@ -45,7 +45,18 @@ class PokemonCards extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
+                  child:
+                      // RotationTransition(
+                      //   turns: const AlwaysStoppedAnimation(345 / 360),
+                      //   child: Image.asset(
+                      //     'assets/img/pokeball_background.png',
+                      //     scale: 3.0,
+                      //     alignment: Alignment.centerRight,
+                      //     opacity: const AlwaysStoppedAnimation(0.2),
+                      //     fit: BoxFit.none,
+                      //   ),
+                      // ),
+                      Image.asset(
                     'assets/img/card_background.jpg',
                     fit: BoxFit.cover,
                     opacity: const AlwaysStoppedAnimation(0.4),
@@ -80,7 +91,9 @@ class PokemonCards extends StatelessWidget {
               Positioned(
                   top: 55.0,
                   right: -45.0,
-                  child: PokemonTypes(futureType: futureType))
+                  child: PokemonTypes(
+                    type: snapData.type,
+                  ))
             ]),
           ),
         );

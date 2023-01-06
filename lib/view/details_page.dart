@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:pokedex_project/components/pokemon_stats.dart';
 import 'package:pokedex_project/components/pokemon_types.dart';
 import 'package:pokedex_project/components/rounded_button.dart';
-import 'package:pokedex_project/data/models/poke_type_model.dart';
 import 'package:pokedex_project/data/models/pokemon_model.dart';
 import 'package:pokedex_project/data/repositories/pokemon_repository.dart';
 import 'package:string_capitalize/string_capitalize.dart';
@@ -20,7 +17,7 @@ class DetailsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final pokemon = PokemonRepository();
     return Scaffold(
-      body: FutureBuilder<PokemonModel>(
+      body: FutureBuilder<PokeModel>(
         future: pokemon.getPokemons(index),
         builder: (context, snapshot) {
           final snapData = snapshot.data;
@@ -39,9 +36,18 @@ class DetailsPage extends StatelessWidget {
                     height: size.height,
                     color: Colors.purple.shade100,
                   ),
-                  Image.asset(
-                    'assets/img/pokeball_background.png',
-                    opacity: const AlwaysStoppedAnimation(0.1),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Center(
+                      child: RotationTransition(
+                        turns: const AlwaysStoppedAnimation(15 / 360),
+                        child: Image.asset(
+                          'assets/img/pokeball_background.png',
+                          opacity: const AlwaysStoppedAnimation(0.1),
+                          scale: 1.3,
+                        ),
+                      ),
+                    ),
                   ),
                   Column(
                     children: [
@@ -57,7 +63,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                       ),
                       PokemonTypes(
-                        futureType: pokemon.getType(index),
+                        type: snapData.type,
                         isRow: true,
                       ),
                     ],
@@ -102,7 +108,9 @@ class DetailsPage extends StatelessWidget {
                                     .copyWith(color: Colors.black),
                               ),
                             ),
-                            PokemonStats(index: index),
+                            PokemonStats(
+                              status: snapData.status,
+                            ),
                           ]),
                     ),
                   ),

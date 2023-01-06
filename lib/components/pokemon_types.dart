@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_project/data/models/poke_type_model.dart';
+import 'package:pokedex_project/data/models/pokemon_model.dart';
 
 class PokemonTypes extends StatelessWidget {
   const PokemonTypes({
     Key? key,
-    required this.futureType,
+    required this.type,
     this.isRow = false,
   }) : super(key: key);
 
-  final Future<List<PokeTypeModel>> futureType;
+  final List<PokeTypesModel> type;
 
   final bool isRow;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PokeTypeModel>>(
-      future: futureType,
-      builder: (context, snapshot) {
-        final snapData = snapshot.data;
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        return SizedBox(
+    return SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 60,
           child: ListView.builder(
@@ -32,7 +24,7 @@ class PokemonTypes extends StatelessWidget {
             itemBuilder: (context, index) => isRow
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: snapData!
+                    children: type
                         .map<Widget>(
                           (e) => Padding(
                             padding: const EdgeInsets.symmetric(
@@ -66,7 +58,7 @@ class PokemonTypes extends StatelessWidget {
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: snapData!
+                    children: type
                         .map<Widget>(
                           (e) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -98,7 +90,5 @@ class PokemonTypes extends StatelessWidget {
                   ),
           ),
         );
-      },
-    );
   }
 }
