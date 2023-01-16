@@ -14,7 +14,6 @@ class PokemonRepository {
 
       return pokemons;
     } catch (e) {
-      print(e);
       throw Exception(e);
     }
   }

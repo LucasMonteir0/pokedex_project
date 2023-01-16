@@ -16,7 +16,11 @@ class PokemonCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailsPage(index: data.id)),
+          MaterialPageRoute(
+              builder: (context) => DetailsPage(
+                    index: data.id,
+                    data: data,
+                  )),
         ),
         child: Stack(children: [
           Container(
@@ -24,9 +28,9 @@ class PokemonCard extends StatelessWidget {
             height: size.height,
             margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.deepPurple.shade200,
-            ),
+                borderRadius: BorderRadius.circular(20),
+                // color: Colors.deepPurple.shade200,
+                color: data.baseColor),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(

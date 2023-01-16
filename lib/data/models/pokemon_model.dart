@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pokedex_project/data/models/poke_stats_model.dart';
 import 'package:pokedex_project/data/models/poke_type_model.dart';
 
@@ -26,10 +27,56 @@ class PokeModel {
         .map<PokeStatsModel>((value) => PokeStatsModel.fromMap(value))
         .toList();
     return PokeModel(
-        id: map["id"],
-        name: map["name"],
-        image: image,
-        type: type,
-        status: status);
+      id: map["id"],
+      name: map["name"],
+      image: image,
+      type: type,
+      status: status,
+    );
+  }
+
+  Color? get baseColor => _color(type: type[0].name);
+
+  static Color? _color({required String type}) {
+    switch (type) {
+      case 'normal':
+        return Colors.brown[400];
+      case 'fire':
+        return Colors.red;
+      case 'water':
+        return Colors.blue;
+      case 'grass':
+        return Colors.green;
+      case 'electric':
+        return Colors.amber;
+      case 'ice':
+        return Colors.cyanAccent[400];
+      case 'fighting':
+        return Colors.orange;
+      case 'poison':
+        return Colors.purple;
+      case 'ground':
+        return Colors.orange[300];
+      case 'flying':
+        return Colors.indigo[200];
+      case 'psychic':
+        return Colors.pink;
+      case 'bug':
+        return Colors.lightGreen[500];
+      case 'rock':
+        return Colors.grey;
+      case 'ghost':
+        return Colors.indigo[400];
+      case 'dark':
+        return Colors.brown;
+      case 'dragon':
+        return Colors.indigo[800];
+      case 'steel':
+        return Colors.blueGrey;
+      case 'fairy':
+        return Colors.pinkAccent[100];
+      default:
+        return Colors.grey;
+    }
   }
 }
