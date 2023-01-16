@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_project/components/pokemon_stats.dart';
-import 'package:pokedex_project/components/pokemon_types.dart';
-import 'package:pokedex_project/components/rounded_button.dart';
 import 'package:pokedex_project/data/models/pokemon_model.dart';
 import 'package:pokedex_project/data/repositories/pokemon_repository.dart';
+import 'package:pokedex_project/ui/components/pokemon_widgets/pokemon_stats.dart';
+import 'package:pokedex_project/ui/components/pokemon_widgets/pokemon_types.dart';
+import 'package:pokedex_project/ui/components/rounded_button.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 class DetailsPage extends StatelessWidget {
