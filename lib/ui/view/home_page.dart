@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_project/ui/components/poke_grid_view.dart';
+import 'package:pokedex_project/ui/components/tabs/pokemon_selection_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,17 +34,16 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             Expanded(
-              child: PokeGridView(
-                controller: _scrollController,
-              ),
-            )
+                child: PokemonSelectionTab(
+              controller: _scrollController,
+            ))
           ],
         ));
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
+    _scrollController.dispose();
   }
 }

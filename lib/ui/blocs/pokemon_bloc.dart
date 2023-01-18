@@ -5,15 +5,16 @@ import 'package:pokedex_project/ui/blocs/states.dart';
 
 class GetPokemonBloc extends Cubit<BaseState> {
   final PokemonRepository _repository;
-  final int id;
 
-  GetPokemonBloc(this._repository, this.id) : super(EmptyState());
+  GetPokemonBloc(
+    this._repository,
+  ) : super(EmptyState());
 
   void call() async {
     emit(LoadingState());
     try {
-      final result = await _repository.getPokemons(id);
-      emit(SuccessState<PokeModel>(result));
+      final result = await _repository.getPokemons();
+      emit(SuccessState<List<PokeModel>>(result));
     } catch (e) {
       emit(ErrorState(e.toString()));
     }

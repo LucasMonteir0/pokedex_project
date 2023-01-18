@@ -5,14 +5,17 @@ import 'package:pokedex_project/data/models/pokemon_model.dart';
 class PokemonRepository {
   final _dio = Dio();
 
-  Future<PokeModel> getPokemons(int index) async {
+  Future<List<PokeModel>> getPokemons() async {
+    final List<int> listNum = List.generate(906, (index) => index);
+    List<PokeModel> listPokeModel = [];
     try {
-      final response =
-          await _dio.get('${ApiUrl.baseUrl}${ApiUrl.pokemon}$index');
+      for (int i = 1; i < listNum.length; ++i) {
+        final response = await _dio.get('${ApiUrl.baseUrl}${ApiUrl.pokemon}$i');
+        final PokeModel pokemons = PokeModel.fromMap(response.data);
+        listPokeModel.add(pokemons);
+      }
 
-      final PokeModel pokemons = PokeModel.fromMap(response.data);
-
-      return pokemons;
+      return listPokeModel;
     } catch (e) {
       throw Exception(e);
     }

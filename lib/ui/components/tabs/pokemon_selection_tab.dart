@@ -7,11 +7,10 @@ import 'package:pokedex_project/ui/components/pokemon_widgets/pokemon_cards.dart
 
 class PokemonSelectionTab extends StatefulWidget {
   const PokemonSelectionTab({
-    Key? key,
-    required this.id,
+    Key? key, required this.controller,
   }) : super(key: key);
 
-  final int id;
+  final ScrollController controller;
 
   @override
   State<PokemonSelectionTab> createState() => _PokemonSelectionTabState();
@@ -23,14 +22,19 @@ class _PokemonSelectionTabState extends State<PokemonSelectionTab> {
 
   @override
   void initState() {
-    super.initState();
     _repository = PokemonRepository();
-    bloc = GetPokemonBloc(_repository, widget.id);
+    bloc = GetPokemonBloc(_repository);
     bloc();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: MediaQuery.of(context).size.width /
+            (MediaQuery.of(context).size.height / 4));
+
     return BlocBuilder<GetPokemonBloc, BaseState>(
         bloc: bloc,
         builder: (context, state) {
@@ -40,9 +44,15 @@ class _PokemonSelectionTabState extends State<PokemonSelectionTab> {
             );
           }
           if (state is SuccessState) {
-            return PokemonCard(
-              data: state.data,
-            );
+            return GridView.builder(
+      controller: widget.controller,
+      padding: const EdgeInsets.only(top: 8.0),
+      itemCount: 905,
+      gridDelegate: gridDelegate,
+      itemBuilder: (context, index) => PokemonCard( 
+          data: state.data[index],
+          ),
+    );
           }
           return const Center(
             child: CircularProgressIndicator(),
